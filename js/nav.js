@@ -88,7 +88,7 @@ async function renderNav() {
       await supabase.auth.signOut();
       // Router verwenden für Navigation
       const { router } = await import('./router.js');
-      router.navigate('/', false);
+      router.navigate('index.html', false);
     });
   }
 

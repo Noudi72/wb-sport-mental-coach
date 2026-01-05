@@ -3,20 +3,20 @@ const CACHE_NAME = 'wb-mental-coach-v2.0.0';
 const STATIC_CACHE = 'wb-static-v2.0.0';
 const DYNAMIC_CACHE = 'wb-dynamic-v2.0.0';
 
-// Assets die gecacht werden sollen
+// Assets die gecacht werden sollen (relative Pfade für GitHub Pages)
 const STATIC_ASSETS = [
-  '/',
-  '/index.html',
-  '/css/styles.css',
-  '/js/nav.js',
-  '/js/supa.js',
-  '/js/config.js',
-  '/js/utils.js',
-  '/js/check-auth.js',
-  '/js/dark-mode.js',
-  '/js/error-handler.js',
-  '/js/app-init.js',
-  '/assets/logo/logo.png'
+  'index.html',
+  'css/styles.css',
+  'js/nav.js',
+  'js/supa.js',
+  'js/config.js',
+  'js/utils.js',
+  'js/check-auth.js',
+  'js/dark-mode.js',
+  'js/error-handler.js',
+  'js/app.js',
+  'js/router.js',
+  'assets/logo/logo.png'
 ];
 
 // Install Event - Cache statische Assets
@@ -95,8 +95,9 @@ self.addEventListener('fetch', (event) => {
             return cachedResponse;
           }
 
-          // Fallback für Navigation requests
+          // Fallback für Navigation requests (SPA)
           if (request.mode === 'navigate') {
+            return caches.match('index.html');
             return caches.match('/index.html');
           }
 

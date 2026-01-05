@@ -8,12 +8,12 @@
   <link rel="icon" href="assets/favicon.ico" />
   <link rel="manifest" href="manifest.json" />
   <title>WB Sport Mental Coach</title>
-  <link rel="stylesheet" href="/css/styles.css" />
+  <link rel="stylesheet" href="css/styles.css" />
   <script>
     // Service Worker Registration
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
-        navigator.serviceWorker.register('/sw.js')
+        navigator.serviceWorker.register('sw.js')
           .then((reg) => console.log('[SW] Registered:', reg))
           .catch((err) => console.error('[SW] Registration failed:', err));
       });
@@ -22,7 +22,7 @@
 </head>
 <body class="page page--home">
   <header class="navbar" role="banner">
-    <a href="/" class="logo-link">
+    <a href="index.html" class="logo-link">
       <img src="assets/logo/logo.png" alt="Logo von WB Sport Mental Coach" class="logo" />
     </a>
     <nav aria-label="Hauptnavigation"></nav>
@@ -40,10 +40,10 @@
 
   <!-- App Initialisierung -->
   <script type="module">
-    import { initApp } from '/js/app.js';
-    import { initDarkMode } from '/js/dark-mode.js';
-    import '/js/error-handler.js';
-    import '/js/nav.js';
+    import { initApp } from './js/app.js';
+    import { initDarkMode } from './js/dark-mode.js';
+    import './js/error-handler.js';
+    import './js/nav.js';
     
     // Dark Mode initialisieren
     initDarkMode();

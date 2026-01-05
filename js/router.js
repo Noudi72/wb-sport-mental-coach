@@ -104,7 +104,7 @@ class Router {
         await requireUser();
       } catch (error) {
         // Nicht eingeloggt, redirect zu login
-        await this.navigate('/login.html', false);
+        await this.navigate('login.html', false);
         return;
       }
     }
@@ -170,7 +170,7 @@ class Router {
         <div class="error-container">
           <h2>Fehler beim Laden</h2>
           <p>Die Seite konnte nicht geladen werden.</p>
-          <a href="/" class="btn btn-primary">Zur Startseite</a>
+          <a href="index.html" class="btn btn-primary">Zur Startseite</a>
         </div>
       `;
     }
