@@ -25,7 +25,7 @@ main {
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  padding: 1.25rem 2rem;
+  padding: 1rem 2rem;
   background-color: var(--card-bg);
   border-bottom: 1px solid var(--card-border);
   box-shadow: var(--shadow);
@@ -40,11 +40,17 @@ body.dark .navbar {
   background-color: rgba(30, 41, 59, 0.95);
 }
 
+.navbar .logo-link {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  margin-right: 2rem;
+}
+
 .navbar .logo {
-  max-height: 45px;
+  max-height: 35px;
   height: auto;
   transition: transform 0.2s ease;
-  margin-right: 2rem;
 }
 
 .navbar .logo:hover {
@@ -67,15 +73,34 @@ body.dark .navbar {
   font-weight: 500;
 }
 
-.nav-list li a {
+.nav-list {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.nav-list li {
+  margin: 0;
+}
+
+.nav-list li a,
+.nav-list li button {
   text-decoration: none;
   color: var(--text);
   transition: all 0.2s ease;
   display: block;
-  padding: 0.625rem 1rem;
+  padding: 0.5rem 0.875rem;
   border-radius: var(--radius-sm);
-  font-size: 0.95rem;
+  font-size: 0.9rem;
   position: relative;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+  font-weight: 500;
 }
 
 .nav-list li a::after {
@@ -109,17 +134,17 @@ body.dark .navbar {
 
 .hero {
   text-align: center;
-  padding: 5rem 2rem;
-  margin: 3rem 0;
+  padding: 3rem 2rem;
+  margin: 2rem 0;
   position: relative;
 }
 
 .hero h1 {
-  font-size: clamp(2.5rem, 6vw, 4rem);
+  font-size: clamp(2rem, 4vw, 2.75rem);
   margin-bottom: 1.5rem;
   color: var(--text);
-  font-weight: 800;
-  line-height: 1.1;
+  font-weight: 700;
+  line-height: 1.2;
 }
 
 .hero-subtitle {

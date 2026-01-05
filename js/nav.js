@@ -70,7 +70,41 @@ async function renderNav() {
 
   const { data: { user } } = await supabase.auth.getUser();
 
-  nav.innerHTML = buildNavHtml(user);
+  // Erstelle Navigation mit Links als Liste
+  const navHtml = `<ul class="nav-list">${buildMainLinks().split('</a>').map(link => {
+    if (link.trim()) {
+      const hrefMatch = link.match(/href="([^"]+)"/);
+      const classMatch = link.match(/class="([^"]+)"/);
+      const textMatch = link.match(/>([^<]+)</);
+      if (hrefMatch && textMatch) {
+        const href = hrefMatch[1];
+        const text = textMatch[1];
+        const classes = classMatch ? ` class="${classMatch[1]}"` : '';
+        return `<li><a href="${href}"${classes}>${text}</a></li>`;
+      }
+    }
+    return '';
+  }).filter(Boolean).join('')}${buildAuthLinks(user).split('</a>').map(link => {
+    if (link.includes('</button>')) {
+      const btnMatch = link.match(/<button[^>]*>([^<]+)</);
+      if (btnMatch) {
+        return `<li>${link}</button></li>`;
+      }
+    } else if (link.trim()) {
+      const hrefMatch = link.match(/href="([^"]+)"/);
+      const classMatch = link.match(/class="([^"]+)"/);
+      const textMatch = link.match(/>([^<]+)</);
+      if (hrefMatch && textMatch) {
+        const href = hrefMatch[1];
+        const text = textMatch[1];
+        const classes = classMatch ? ` class="${classMatch[1]}"` : '';
+        return `<li><a href="${href}"${classes}>${text}</a></li>`;
+      }
+    }
+    return '';
+  }).filter(Boolean).join('')}</ul>${buildThemeToggle()}`;
+  
+  nav.innerHTML = navHtml;
 
   const btn = nav.querySelector('#logoutBtn');
   if (btn) {
