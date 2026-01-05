@@ -1,6 +1,6 @@
 // js/supa.js
-// Supabase client initialization using CDN ES module
-import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.7.1/+esm";
+// Supabase client initialization using import map
+import { createClient } from "@supabase/supabase-js";
 import { SUPABASE_CONFIG } from "./config.js";
 
 // 🚀 Create and export a reusable client instance

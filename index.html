@@ -9,6 +9,14 @@
   <link rel="manifest" href="manifest.json" />
   <title>WB Sport Mental Coach</title>
   <link rel="stylesheet" href="css/styles.css" />
+  <!-- Import Map für Supabase - löst das Problem mit relativen Imports -->
+  <script type="importmap">
+  {
+    "imports": {
+      "@supabase/supabase-js": "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.7.1/dist/esm/index.js"
+    }
+  }
+  </script>
   <script>
     // Service Worker Registration
     if ('serviceWorker' in navigator) {
