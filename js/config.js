@@ -15,8 +15,13 @@ const getEnvVar = (key, fallback) => {
     return window.env[key];
   }
   // Versuche import.meta.env (für Vite)
-  if (typeof import !== 'undefined' && import.meta?.env?.[key]) {
-    return import.meta.env[key];
+  // import.meta ist immer verfügbar in ES Modules
+  try {
+    if (import.meta?.env?.[key]) {
+      return import.meta.env[key];
+    }
+  } catch (e) {
+    // import.meta nicht verfügbar (sollte nicht passieren in ES Modules)
   }
   return fallback;
 };
