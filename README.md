@@ -1,6 +1,15 @@
 # 🧘 WB Sport Mental Coach
 
+![Version](https://img.shields.io/badge/version-2.0.0-blue.svg)
+![License](https://img.shields.io/badge/license-ISC-green.svg)
+![GitHub Pages](https://img.shields.io/badge/GitHub%20Pages-Live-brightgreen.svg)
+![GitHub last commit](https://img.shields.io/github/last-commit/Noudi72/wb-sport-mental-coach)
+![GitHub issues](https://img.shields.io/github/issues/Noudi72/wb-sport-mental-coach)
+![GitHub pull requests](https://img.shields.io/github/issues-pr/Noudi72/wb-sport-mental-coach)
+
 Eine moderne Web-Applikation für mentales Training, Motivation und persönliche Weiterentwicklung.
+
+🌐 **Live Demo:** [GitHub Pages](https://noudi72.github.io/wb-sport-mental-coach/)
 
 ## ✨ Features
 
@@ -20,6 +29,9 @@ Eine moderne Web-Applikation für mentales Training, Motivation und persönliche
 - 📋 **Fragebogen-Verwaltung** - Zuweisung von Check-in Sets
 
 ## 🚀 Schnellstart
+
+### 🌐 Live-Version
+Die App ist live auf GitHub Pages verfügbar: **[Live Demo](https://noudi72.github.io/wb-sport-mental-coach/)**
 
 ### Voraussetzungen
 - Node.js (für Entwicklung)
