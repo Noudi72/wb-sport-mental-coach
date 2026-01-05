@@ -1,35 +1,67 @@
 :root {
-  --bg: #fefefe;
-  --bg-alt: #f3f3f3;
-  --text: #222;
-  --accent: #0077cc;
-  --error: #cc0000;
-  --ok: #2e7d32;
+  /* Farben - Modern & Professionell */
+  --bg: #fafbfc;
+  --bg-alt: #f0f4f8;
+  --text: #1a202c;
+  --text-muted: #718096;
+  --accent: #2563eb;
+  --accent-hover: #1d4ed8;
+  --accent-light: #dbeafe;
+  --error: #dc2626;
+  --ok: #16a34a;
+  --warning: #f59e0b;
 
-  --pill-bg: #eee;
-  --pill-text: #000;
+  --pill-bg: #e2e8f0;
+  --pill-text: #1a202c;
 
-  --card-bg: #fff;
-  --card-border: #ccc;
+  --card-bg: #ffffff;
+  --card-border: #e2e8f0;
+  --card-hover: #f8fafc;
 
   --gap: 1rem;
-  --radius: 6px;
-  --shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  --radius: 12px;
+  --radius-sm: 8px;
+  --radius-lg: 16px;
+  --shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+
+  /* Typography */
+  --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+  --font-heading: var(--font-sans);
+  
+  /* Spacing */
+  --spacing-xs: 0.25rem;
+  --spacing-sm: 0.5rem;
+  --spacing-md: 1rem;
+  --spacing-lg: 1.5rem;
+  --spacing-xl: 2rem;
+  --spacing-2xl: 3rem;
 }
 
 [data-theme="dark"],
 body.dark {
-  --bg: #111;
-  --bg-alt: #1c1c1c;
-  --text: #eee;
-  --accent: #3399ff;
+  --bg: #0f172a;
+  --bg-alt: #1e293b;
+  --text: #f1f5f9;
+  --text-muted: #94a3b8;
+  --accent: #3b82f6;
+  --accent-hover: #60a5fa;
+  --accent-light: #1e3a8a;
+  --error: #ef4444;
+  --ok: #22c55e;
+  --warning: #fbbf24;
 
-  --pill-bg: #333;
-  --pill-text: #fff;
+  --pill-bg: #334155;
+  --pill-text: #f1f5f9;
 
-  --card-bg: #1a1a1a;
-  --card-border: #444;
+  --card-bg: #1e293b;
+  --card-border: #334155;
+  --card-hover: #334155;
 
-  --error: #ff6666;
-  --ok: #66cc99;
+  --shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.3), 0 1px 2px 0 rgba(0, 0, 0, 0.2);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.3), 0 4px 6px -2px rgba(0, 0, 0, 0.2);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.3), 0 10px 10px -5px rgba(0, 0, 0, 0.2);
 }

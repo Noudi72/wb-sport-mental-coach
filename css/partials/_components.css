@@ -3,10 +3,17 @@
 .card {
   background: var(--card-bg);
   border: 1px solid var(--card-border);
-  border-radius: var(--radius);
-  padding: 1rem;
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
   box-shadow: var(--shadow);
-  margin-bottom: 1rem;
+  margin-bottom: 1.5rem;
+  transition: all 0.3s ease;
+}
+
+.card:hover {
+  box-shadow: var(--shadow-lg);
+  transform: translateY(-2px);
+  border-color: var(--accent);
 }
 
 .flash {
@@ -46,17 +53,27 @@
 
 .btn {
   display: inline-block;
-  padding: 0.5rem 1rem;
-  border-radius: var(--radius);
+  padding: 0.75rem 1.5rem;
+  border-radius: var(--radius-sm);
   border: none;
   background: var(--accent);
   color: white;
   text-align: center;
   cursor: pointer;
-  font-weight: 500;
+  font-weight: 600;
+  font-size: 0.95rem;
+  transition: all 0.2s ease;
+  box-shadow: var(--shadow);
 }
+
 .btn:hover {
-  opacity: 0.9;
+  background: var(--accent-hover);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.btn:active {
+  transform: translateY(0);
 }
 .btn:disabled {
   opacity: 0.5;
@@ -157,10 +174,15 @@ select.error {
   background: var(--bg-alt);
   color: var(--text);
   border: 1px solid var(--card-border);
+  box-shadow: var(--shadow);
 }
 
 .btn-secondary:hover {
-  background: var(--card-border);
+  background: var(--card-hover);
+  border-color: var(--accent);
+  color: var(--accent);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
 }
 
 /* ────── Audio Player Styles ────── */
