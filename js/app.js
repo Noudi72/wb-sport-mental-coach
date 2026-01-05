@@ -187,11 +187,25 @@ export async function initApp() {
   await new Promise(resolve => setTimeout(resolve, 10));
   
   // Lade initiale Route
-  const currentPath = location.pathname || 'index.html';
+  // Auf GitHub Pages ist der Pfad z.B. /wb-sport-mental-coach/ oder /wb-sport-mental-coach/index.html
+  let currentPath = location.pathname || 'index.html';
+  
+  // Entferne Repository-Pfad für GitHub Pages
+  // z.B. /wb-sport-mental-coach/index.html -> index.html
+  if (currentPath.includes('/') && currentPath !== '/') {
+    const parts = currentPath.split('/').filter(p => p);
+    currentPath = parts[parts.length - 1] || 'index.html';
+  }
+  
+  // Wenn leer oder nur /, dann index.html
+  if (!currentPath || currentPath === '/' || currentPath === 'index.html' || currentPath.endsWith('/')) {
+    currentPath = 'index.html';
+  }
+  
   const hash = location.hash.replace('#', '');
   const pathToLoad = hash || currentPath;
   
-  console.log('📍 Lade initiale Route:', pathToLoad);
+  console.log('📍 Lade initiale Route:', pathToLoad, '(von', location.pathname, ')');
   await router.handleRoute(pathToLoad, false);
 }
 
