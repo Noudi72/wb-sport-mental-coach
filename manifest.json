@@ -1,0 +1,21 @@
+{
+  "name": "WB Sport Mental Coach",
+  "short_name": "WB Mental Coach",
+  "description": "Mentales Training, Motivation und Persönlichkeitsentwicklung",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#fefefe",
+  "theme_color": "#0077cc",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "assets/logo/logo.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["health", "lifestyle", "education"],
+  "lang": "de"
+}
+

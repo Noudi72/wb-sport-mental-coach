@@ -1,0 +1,40 @@
+/* ────── Tabellen, Admin-Listen, Tabellen-Wrapper ────── */
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  border: 1px solid var(--card-border);
+  margin-bottom: 1.5rem;
+}
+
+.table th,
+.table td {
+  padding: 0.75rem;
+  border: 1px solid var(--card-border);
+  text-align: left;
+  vertical-align: top;
+}
+
+.table th {
+  background: var(--bg-alt);
+  font-weight: 600;
+}
+
+.table-scroll {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.table-scroll .table {
+  min-width: 600px;
+}
+
+.action-wrap {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.action-wrap button {
+  flex-shrink: 0;
+}

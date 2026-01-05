@@ -1,0 +1,47 @@
+<!-- nav.html -->
+<nav class="main-nav">
+  <button id="navToggle" class="hamburger">☰</button>
+  <ul class="nav-list">
+  <li><a href="index.html">Home</a></li>
+  <li><a href="hoerbuecher.html">Hörbücher & Meditationen</a></li>
+  <li><a href="checkin.html">Mental-Check-in</a></li>
+  <li><a href="feedback.html">Feedback</a></li>
+  <li><a href="tagebuch.html">Tagebuch</a></li>
+  <li><a href="kontakt.html">Kontakt</a></li>
+  <li><a href="login.html">Login</a></li>
+</ul>
+</nav>
+
+<script type="module">
+import { supabase } from './js/supa.js';
+
+const navToggle = document.getElementById('navToggle');
+const navLinks = document.getElementById('navLinks');
+navToggle.addEventListener('click', () => {
+  navLinks.classList.toggle('show');
+});
+
+// Login/Logout handling
+const loginItem = document.getElementById('loginItem');
+const logoutItem = document.getElementById('logoutItem');
+const adminLink = document.getElementById('adminLink');
+
+const { data: { user } } = await supabase.auth.getUser();
+
+if (user) {
+  loginItem.style.display = 'none';
+  logoutItem.style.display = 'block';
+
+  if (user.email === 'w.blaurock80@outlook.com') {
+    adminLink.style.display = 'block';
+  }
+} else {
+  loginItem.style.display = 'block';
+  logoutItem.style.display = 'none';
+}
+
+document.getElementById('logoutBtn').addEventListener('click', async () => {
+  await supabase.auth.signOut();
+  window.location.href = 'login.html';
+});
+</script>

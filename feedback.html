@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Feedback – WB Sport Mental Coach</title>
+  <link rel="stylesheet" href="css/styles.css" />
+  <script defer type="module" src="js/nav.js"></script>
+</head>
+<body>
+  <!-- Header -->
+  <header class="navbar">
+    <img src="assets/logo/logo.png" alt="WB Mental Coach" class="logo" />
+    <nav></nav>
+  </header>
+
+  <!-- Main Content -->
+  <main class="container">
+    <h1>Feedback</h1>
+    <p>Dein Feedback hilft uns, die Einheiten zu verbessern.</p>
+
+    <form id="fbForm" class="form-container">
+      <label>
+        Wie hilfreich war die heutige Einheit?<br />
+        <select name="rating" required>
+          <option value="" disabled selected>Bitte wählen …</option>
+          <option>1 – gar nicht</option>
+          <option>2</option>
+          <option>3</option>
+          <option>4</option>
+          <option>5 – sehr hilfreich</option>
+        </select>
+      </label>
+
+      <label>
+        Dein Kommentar:<br />
+        <textarea name="comment" rows="4" placeholder="Optional …"></textarea>
+      </label>
+
+      <button type="submit" class="btn-primary">Senden</button>
+    </form>
+
+    <p id="msg"></p>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    &copy; 2025 Waltraud Blaurock Sport Mental Coach
+  </footer>
+
+  <script type="module" src="js/feedback.js"></script>
+</body>
+</html>

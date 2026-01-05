@@ -1,0 +1,43 @@
+/* ────── Utilities: kleine Helfer-Klassen ────── */
+
+/* Visually hidden (z. B. für Screenreader) */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Zentrierung */
+.center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Abstandsklassen */
+.mt-1 { margin-top: 0.5rem; }
+.mt-2 { margin-top: 1rem; }
+.mt-3 { margin-top: 1.5rem; }
+.mb-1 { margin-bottom: 0.5rem; }
+.mb-2 { margin-bottom: 1rem; }
+.mb-3 { margin-bottom: 1.5rem; }
+
+/* Text-Utilities */
+.truncate {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Inline-Flex Quick Utility */
+.inline-flex {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}

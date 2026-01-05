@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Mentales Training, Motivation und Persönlichkeitsentwicklung mit WB Sport Mental Coach." />
+  <meta name="theme-color" content="#0077cc" />
+  <link rel="icon" href="assets/favicon.ico" />
+  <link rel="manifest" href="manifest.json" />
+  <title>WB Sport Mental Coach</title>
+  <link rel="stylesheet" href="css/partials/_reset.css" />
+  <link rel="stylesheet" href="css/partials/_layout.css" />
+  <link rel="stylesheet" href="css/partials/_components.css" />
+  <script type="module" src="js/app-init.js"></script>
+  <script type="module" defer src="js/nav.js"></script>
+  <script>
+    // Service Worker Registration
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/sw.js')
+          .then((reg) => console.log('[SW] Registered:', reg))
+          .catch((err) => console.error('[SW] Registration failed:', err));
+      });
+    }
+  </script>
+</head>
+<body class="page page--home">
+  <header class="navbar" role="banner">
+    <img src="assets/logo/logo.png" alt="Logo von WB Sport Mental Coach" class="logo" />
+    <nav aria-label="Hauptnavigation">
+      <ul class="nav-list">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="hoerbuch.html">Hörbücher & Meditationen</a></li>
+        <li><a href="frageboegen.html">Mental-Check-in</a></li>
+        <li><a href="feedback.html">Feedback</a></li>
+        <li><a href="tagebuch.html">Tagebuch</a></li>
+        <li><a href="kontakt.html">Kontakt</a></li>
+        <li><a href="login.html">Login</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="container" role="main">
+    <section class="hero" aria-labelledby="hero-title">
+      <img src="assets/logo/logo.png" alt="Logo von WB Sport Mental Coach" class="hero-logo" />
+      <h1 id="hero-title">Willkommen bei WB Sport Mental Coach</h1>
+      <p>Ihr Partner für mentales Training, Motivation und persönliche Weiterentwicklung.</p>
+    </section>
+  </main>
+
+  <footer role="contentinfo">
+    © 2025 Waltraud Blaurock Sport Mental Coach
+  </footer>
+</body>
+</html>

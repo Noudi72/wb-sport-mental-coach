@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin: Kontakt-Nachrichten</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <script src="js/supa.js" defer></script>
+    <script src="js/admin-auth.js" defer></script>
+    <script src="js/admin-contact.js" defer></script>
+</head>
+<body>
+    <!-- Navigation -->
+    <header>
+        <nav class="navbar">
+            <div class="logo">
+                <img src="assets/logo.png" alt="WB Mental Coach Logo">
+                <span>Admin-Bereich</span>
+            </div>
+            <div class="nav-buttons">
+                <a href="admin.html" class="btn">Übersicht</a>
+                <button id="logout" class="btn logout">Logout</button>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hauptinhalt -->
+    <main class="container">
+        <h1>Kontakt-Nachrichten verwalten</h1>
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Datum</th>
+                        <th>Name</th>
+                        <th>E-Mail</th>
+                        <th>Nachricht</th>
+                    </tr>
+                </thead>
+                <tbody id="contact-list">
+                    <!-- Nachrichten werden hier per JS eingefügt -->
+                </tbody>
+            </table>
+        </div>
+        <div id="error-message" class="error-message"></div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <p>© 2025 Waltraud Blaurock Sport Mental Coach – Admin</p>
+    </footer>
+</body>
+</html>

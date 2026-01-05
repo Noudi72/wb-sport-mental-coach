@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tagebuch – WB Mental Coach</title>
+  <link rel="stylesheet" href="css/styles.css" />
+  <script defer type="module" src="js/nav.js"></script>
+</head>
+<body>
+  <!-- Einheitliche Kopfzeile / Navigation -->
+  <header class="navbar">
+    <img src="assets/logo/logo.png" alt="WB Sport Mental Coach" class="logo" />
+    <nav></nav>
+  </header>
+
+  <!-- Inhalt -->
+  <main class="container">
+    <h1>Tagebuch</h1>
+
+    <form id="diaryForm" autocomplete="off">
+      <label for="entry">Dein Eintrag für heute:</label>
+      <textarea id="entry" name="entry" rows="6" placeholder="Schreibe hier deinen Tagebuch‑Eintrag..." required></textarea>
+      <div class="center mt-2">
+        <button type="submit">Speichern</button>
+      </div>
+    </form>
+
+    <p id="msg" class="flash"></p>
+
+    <section class="card mt-3" id="diary-controls">
+      <div class="toolbar">
+        <input 
+          type="search" 
+          id="diarySearch" 
+          placeholder="Einträge durchsuchen..." 
+          aria-label="Tagebuch durchsuchen"
+        />
+        <button id="exportDiaryBtn" class="btn btn-secondary" type="button">
+          📥 Exportieren
+        </button>
+      </div>
+      <p id="diaryStatus" class="muted"></p>
+    </section>
+
+    <section id="entries" class="mt-3">
+      <!-- Einträge werden hier geladen -->
+    </section>
+  </main>
+
+  <footer>© 2025 Waltraud Blaurock Sport Mental Coach</footer>
+
+  <!-- Auth-Guard: nur für eingeloggte Nutzer zugänglich -->
+  <script type="module">
+    import { requireUser } from './js/check-auth.js';
+    await requireUser();
+  </script>
+
+  <!-- Seitenlogik (Einfügen & Laden) -->
+  <script type="module" src="js/tagebuch.js"></script>
+</body>
+</html>

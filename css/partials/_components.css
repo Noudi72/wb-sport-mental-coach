@@ -1,0 +1,199 @@
+/* ────── Komponenten: Karten, Buttons, Flash, Chips ────── */
+
+.card {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius);
+  padding: 1rem;
+  box-shadow: var(--shadow);
+  margin-bottom: 1rem;
+}
+
+.flash {
+  padding: 0.75rem 1rem;
+  border-radius: var(--radius);
+  margin-bottom: 1rem;
+  font-weight: 500;
+}
+
+.flash.ok {
+  background: color-mix(in srgb, var(--ok) 15%, transparent);
+  color: var(--ok);
+  border: 1px solid var(--ok);
+}
+
+.flash.err {
+  background: color-mix(in srgb, var(--error) 15%, transparent);
+  color: var(--error);
+  border: 1px solid var(--error);
+}
+
+.flash.info {
+  background: color-mix(in srgb, var(--accent) 15%, transparent);
+  color: var(--accent);
+  border: 1px solid var(--accent);
+}
+
+.chip {
+  display: inline-block;
+  padding: 0.4em 0.75em;
+  border-radius: 999px;
+  background: var(--pill-bg);
+  color: var(--pill-text);
+  font-size: 0.9rem;
+  white-space: nowrap;
+}
+
+.btn {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  border-radius: var(--radius);
+  border: none;
+  background: var(--accent);
+  color: white;
+  text-align: center;
+  cursor: pointer;
+  font-weight: 500;
+}
+.btn:hover {
+  opacity: 0.9;
+}
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.dark-mode-toggle {
+  background: transparent;
+  border: 1px solid var(--card-border);
+  color: var(--text);
+  padding: 0.5rem;
+  font-size: 1.2rem;
+  width: 2.5rem;
+  height: 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.dark-mode-toggle:hover {
+  background: var(--bg-alt);
+  transform: scale(1.1);
+}
+
+.dark-mode-toggle:focus {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* ────── Form Validation Styles ────── */
+
+input.error,
+textarea.error,
+select.error {
+  border-color: var(--error);
+  background-color: color-mix(in srgb, var(--error) 10%, transparent);
+}
+
+.field-error {
+  display: block;
+  color: var(--error);
+  font-size: 0.875rem;
+  margin-top: 0.25rem;
+  font-weight: 500;
+}
+
+/* ────── Tagebuch Styles ────── */
+
+.diary {
+  list-style: none;
+  padding: 0;
+}
+
+.diary li {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius);
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+
+.diary li small {
+  display: block;
+  color: var(--text);
+  opacity: 0.7;
+  margin-bottom: 0.5rem;
+  font-size: 0.875rem;
+}
+
+.diary li p {
+  margin: 0;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+
+.diary li mark {
+  background: color-mix(in srgb, var(--accent) 30%, transparent);
+  padding: 0.1em 0.2em;
+  border-radius: 2px;
+}
+
+.toolbar {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.toolbar input[type="search"] {
+  flex: 1;
+  min-width: 200px;
+}
+
+.btn-secondary {
+  background: var(--bg-alt);
+  color: var(--text);
+  border: 1px solid var(--card-border);
+}
+
+.btn-secondary:hover {
+  background: var(--card-border);
+}
+
+/* ────── Audio Player Styles ────── */
+
+.audio-controls {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+}
+
+.audio-item {
+  margin-bottom: 0.5rem;
+}
+
+.audio-track-btn {
+  width: 100%;
+  text-align: left;
+  padding: 0.75rem 1rem;
+}
+
+.audio-track-btn.active {
+  background: var(--accent);
+  color: white;
+  font-weight: 600;
+}
+
+.audio-info {
+  margin-top: 0.5rem;
+  text-align: center;
+}
+
+.btn.active {
+  background: var(--accent);
+  color: white;
+}

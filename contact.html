@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kontakt – WB Mental Coach</title>
+  <link rel="stylesheet" href="css/styles.css" />
+  <script defer type="module" src="js/nav.js"></script>
+</head>
+<body>
+  <header class="navbar">
+    <img src="assets/logo/logo.png" alt="WB Sport Mental Coach" class="logo" />
+    <nav></nav>
+  </header>
+
+  <main class="container">
+    <h1>Kontakt</h1>
+
+    <form id="contactForm">
+      <label>Name:<br />
+        <input type="text" name="name" required />
+      </label>
+
+      <label>E-Mail:<br />
+        <input type="email" name="email" required />
+      </label>
+
+      <label>Nachricht:<br />
+        <textarea name="message" rows="4" required></textarea>
+      </label>
+
+      <button type="submit">Senden</button>
+    </form>
+
+    <p id="msg"></p>
+  </main>
+
+  <footer>
+    © 2025 Waltraud Blaurock Sport Mental Coach
+  </footer>
+
+  <script type="module" src="js/contact.js"></script>
+</body>
+</html>
