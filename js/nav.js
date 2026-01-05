@@ -17,32 +17,33 @@ function isActive(href) {
   return current === href;
 }
 
-function buildMainLinks() {
-  return LINKS.map(link =>
-    `<a href="${link.href}"${isActive(link.href) ? ' class="active" aria-current="page"' : ''}>${link.label}</a>`
-  ).join('');
-}
-
-function buildAuthLinks(user) {
-  let html = '';
-
-  if (user?.email === ADMIN_EMAIL) {
-    html += `<a href="admin.html"${isActive('admin.html') ? ' class="active" aria-current="page"' : ''}>Admin</a>`;
-  }
-
-  html += user
-    ? `<button id="logoutBtn" class="auth-link" type="button">Logout</button>`
-    : `<a href="login.html"${isActive('login.html') ? ' class="active auth-link" aria-current="page"' : ' class="auth-link"'}>Login</a>`;
-
-  return html;
-}
+// buildMainLinks und buildAuthLinks werden nicht mehr direkt verwendet,
+// sondern sind jetzt in buildNavHtml integriert
 
 function buildThemeToggle() {
   return '<span id="themeToggleContainer"></span>';
 }
 
 function buildNavHtml(user) {
-  return buildMainLinks() + buildAuthLinks(user) + buildThemeToggle();
+  const mainLinks = LINKS.map(link => {
+    const isActive = isActive(link.href);
+    return `<li><a href="${link.href}"${isActive ? ' class="active" aria-current="page"' : ''}>${link.label}</a></li>`;
+  }).join('');
+
+  let authLinks = '';
+  if (user?.email === ADMIN_EMAIL) {
+    const isActiveAdmin = isActive('admin.html');
+    authLinks += `<li><a href="admin.html"${isActiveAdmin ? ' class="active" aria-current="page"' : ''}>Admin</a></li>`;
+  }
+
+  const isActiveLogin = isActive('login.html');
+  if (user) {
+    authLinks += `<li><button id="logoutBtn" class="auth-link" type="button">Logout</button></li>`;
+  } else {
+    authLinks += `<li><a href="login.html"${isActiveLogin ? ' class="active auth-link" aria-current="page"' : ' class="auth-link"'}>Login</a></li>`;
+  }
+
+  return `<ul class="nav-list">${mainLinks}${authLinks}</ul>${buildThemeToggle()}`;
 }
 
 function createMobileToggle() {
@@ -70,41 +71,7 @@ async function renderNav() {
 
   const { data: { user } } = await supabase.auth.getUser();
 
-  // Erstelle Navigation mit Links als Liste
-  const navHtml = `<ul class="nav-list">${buildMainLinks().split('</a>').map(link => {
-    if (link.trim()) {
-      const hrefMatch = link.match(/href="([^"]+)"/);
-      const classMatch = link.match(/class="([^"]+)"/);
-      const textMatch = link.match(/>([^<]+)</);
-      if (hrefMatch && textMatch) {
-        const href = hrefMatch[1];
-        const text = textMatch[1];
-        const classes = classMatch ? ` class="${classMatch[1]}"` : '';
-        return `<li><a href="${href}"${classes}>${text}</a></li>`;
-      }
-    }
-    return '';
-  }).filter(Boolean).join('')}${buildAuthLinks(user).split('</a>').map(link => {
-    if (link.includes('</button>')) {
-      const btnMatch = link.match(/<button[^>]*>([^<]+)</);
-      if (btnMatch) {
-        return `<li>${link}</button></li>`;
-      }
-    } else if (link.trim()) {
-      const hrefMatch = link.match(/href="([^"]+)"/);
-      const classMatch = link.match(/class="([^"]+)"/);
-      const textMatch = link.match(/>([^<]+)</);
-      if (hrefMatch && textMatch) {
-        const href = hrefMatch[1];
-        const text = textMatch[1];
-        const classes = classMatch ? ` class="${classMatch[1]}"` : '';
-        return `<li><a href="${href}"${classes}>${text}</a></li>`;
-      }
-    }
-    return '';
-  }).filter(Boolean).join('')}</ul>${buildThemeToggle()}`;
-  
-  nav.innerHTML = navHtml;
+  nav.innerHTML = buildNavHtml(user);
 
   const btn = nav.querySelector('#logoutBtn');
   if (btn) {
