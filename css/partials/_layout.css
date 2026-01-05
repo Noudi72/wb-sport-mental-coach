@@ -41,10 +41,6 @@ body.dark .navbar {
   background-color: rgba(30, 41, 59, 0.8);
 }
 
-body.dark .navbar {
-  background-color: rgba(30, 41, 59, 0.95);
-}
-
 .navbar .logo-link {
   display: flex;
   align-items: center;
@@ -73,6 +69,7 @@ body.dark .navbar {
   flex: 1;
   height: 100%;
   justify-content: flex-end;
+  margin-left: auto;
 }
 
 .nav-list {

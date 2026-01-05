@@ -28,6 +28,7 @@
   flex-direction: column;
   gap: 5px;
   margin-left: auto;
+  color: var(--text);
 }
 
 .navbar-toggle span {
