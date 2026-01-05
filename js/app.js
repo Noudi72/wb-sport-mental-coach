@@ -195,15 +195,5 @@ export async function initApp() {
   await router.handleRoute(pathToLoad, false);
 }
 
-// Export für manuelle Initialisierung
-export { initApp };
-
-// Auto-Init nur wenn direkt geladen (nicht als Modul)
-if (import.meta.url === `file://${window.location.href}` || document.currentScript) {
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initApp);
-  } else {
-    initApp();
-  }
-}
+// Auto-Init wird von index.html gesteuert, nicht hier
 
