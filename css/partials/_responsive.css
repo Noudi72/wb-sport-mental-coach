@@ -326,6 +326,8 @@ footer {
     padding: 0;
     z-index: 999;
     display: flex !important;
+    visibility: visible !important;
+    opacity: 1 !important;
   }
 
   .navbar nav.mobile-open {
