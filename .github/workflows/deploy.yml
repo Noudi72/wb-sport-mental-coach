@@ -4,6 +4,13 @@ on:
   push:
     branches:
       - main
+    paths-ignore:
+      - '**.md'
+      - '.gitignore'
+      - 'CHANGELOG.md'
+      - 'README.md'
+      - 'ANALYSE_UND_VERBESSERUNGSVORSCHLAEGE.md'
+      - '.github/workflows/*.yml'
   workflow_dispatch:
 
 permissions:
@@ -13,7 +20,7 @@ permissions:
 
 concurrency:
   group: "pages"
-  cancel-in-progress: false
+  cancel-in-progress: true
 
 jobs:
   deploy:
