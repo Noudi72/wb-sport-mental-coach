@@ -70,7 +70,8 @@ body.dark .navbar {
 .navbar nav {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  flex: 1;
+  height: 100%;
 }
 
 .nav-list {
@@ -80,30 +81,25 @@ body.dark .navbar {
   display: flex;
   gap: 0.25rem;
   align-items: center;
-  font-weight: 500;
-}
-
-.nav-list {
-  display: flex;
-  gap: 0.5rem;
-  align-items: center;
-  list-style: none;
-  padding: 0;
-  margin: 0;
+  height: 100%;
 }
 
 .nav-list li {
   margin: 0;
+  height: 100%;
+  display: flex;
+  align-items: center;
 }
 
 .nav-list li a,
 .nav-list li button {
   text-decoration: none;
-  color: var(--text);
-  transition: all 0.2s ease;
-  display: block;
-  padding: 0.5rem 0.75rem;
-  border-radius: var(--radius-sm);
+  color: var(--text-muted);
+  transition: var(--transition);
+  display: flex;
+  align-items: center;
+  padding: 0.5rem 0.875rem;
+  border-radius: var(--radius);
   font-size: 0.875rem;
   position: relative;
   background: none;
@@ -112,33 +108,31 @@ body.dark .navbar {
   font-family: inherit;
   font-weight: 500;
   white-space: nowrap;
+  height: 36px;
 }
 
-.nav-list li a::after {
-  content: '';
-  position: absolute;
-  bottom: 0.25rem;
-  left: 50%;
-  transform: translateX(-50%) scaleX(0);
-  width: 80%;
-  height: 2px;
-  background: var(--accent);
-  transition: transform 0.2s ease;
-}
-
-.nav-list li a:hover {
-  color: var(--accent);
+.nav-list li a:hover,
+.nav-list li button:hover {
+  color: var(--text);
   background: var(--bg-alt);
 }
 
-.nav-list li a:hover::after,
-.nav-list li a.active::after {
-  transform: translateX(-50%) scaleX(1);
+.nav-list li a.active {
+  color: var(--primary);
+  font-weight: 600;
+  background: var(--primary-light);
 }
 
-.nav-list li a.active {
-  color: var(--accent);
-  font-weight: 600;
+.nav-list li a.active::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 3px;
+  height: 20px;
+  background: var(--primary);
+  border-radius: 0 2px 2px 0;
 }
 
 /* ────── Hero ────── */
