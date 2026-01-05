@@ -51,14 +51,23 @@ function createMobileToggle() {
   toggle.className = 'navbar-toggle';
   toggle.setAttribute('aria-label', 'Menü öffnen/schließen');
   toggle.setAttribute('aria-expanded', 'false');
+  toggle.setAttribute('type', 'button');
   toggle.innerHTML = '<span></span><span></span><span></span>';
   
-  toggle.addEventListener('click', () => {
+  toggle.addEventListener('click', (e) => {
+    e.stopPropagation();
     const nav = document.querySelector('nav');
     const isOpen = nav.classList.contains('mobile-open');
     nav.classList.toggle('mobile-open', !isOpen);
     toggle.classList.toggle('active', !isOpen);
     toggle.setAttribute('aria-expanded', !isOpen ? 'true' : 'false');
+    
+    // Verhindere Body-Scroll wenn Menü offen ist
+    if (!isOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
   });
   
   return toggle;
@@ -91,18 +100,47 @@ async function renderNav() {
   // Mobile Toggle Button hinzufügen (nur wenn nicht vorhanden)
   if (!navbar.querySelector('.navbar-toggle')) {
     const mobileToggle = createMobileToggle();
-    navbar.insertBefore(mobileToggle, navbar.firstChild);
+    navbar.appendChild(mobileToggle);
   }
+
+  // Schließe Mobile-Menü bei Klick auf Nav-Link
+  nav.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+      if (window.innerWidth < 768) {
+        nav.classList.remove('mobile-open');
+        const toggle = navbar.querySelector('.navbar-toggle');
+        if (toggle) {
+          toggle.classList.remove('active');
+          toggle.setAttribute('aria-expanded', 'false');
+        }
+        document.body.style.overflow = '';
+      }
+    });
+  });
 
   // Schließe Mobile-Menü bei Klick außerhalb
   document.addEventListener('click', (e) => {
-    if (!navbar.contains(e.target) && nav.classList.contains('mobile-open')) {
+    if (window.innerWidth < 768 && !navbar.contains(e.target) && nav.classList.contains('mobile-open')) {
       nav.classList.remove('mobile-open');
       const toggle = navbar.querySelector('.navbar-toggle');
       if (toggle) {
         toggle.classList.remove('active');
         toggle.setAttribute('aria-expanded', 'false');
       }
+      document.body.style.overflow = '';
+    }
+  });
+
+  // Schließe Mobile-Menü bei Resize zu Desktop
+  window.addEventListener('resize', () => {
+    if (window.innerWidth >= 768 && nav.classList.contains('mobile-open')) {
+      nav.classList.remove('mobile-open');
+      const toggle = navbar.querySelector('.navbar-toggle');
+      if (toggle) {
+        toggle.classList.remove('active');
+        toggle.setAttribute('aria-expanded', 'false');
+      }
+      document.body.style.overflow = '';
     }
   });
 }
