@@ -54,3 +54,97 @@
   display: inline-block;
   margin-bottom: 0.25rem;
 }
+
+/* Styles from admin-checkins.html */
+body {
+  background-color: #fdf7f0;
+  margin: 0;
+  font-family: Arial, sans-serif;
+}
+
+/* Navigation */
+nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 20px;
+  background-color: #fdf7f0;
+  border-bottom: 2px solid #002b5c;
+}
+
+nav .nav-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+nav img {
+  height: 50px;
+}
+
+nav a {
+  background-color: #002b5c;
+  color: white;
+  padding: 10px 15px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+nav a:hover {
+  background-color: #004080;
+}
+
+main {
+  max-width: 1000px;
+  margin: auto;
+  padding: 20px;
+}
+
+h1 {
+  text-align: center;
+  color: #002b5c;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  background: white;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+table th, table td {
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+}
+
+table th {
+  background-color: #002b5c;
+  color: white;
+}
+
+#msg {
+  text-align: center;
+  margin-top: 20px;
+}
+
+input, button {
+  padding: 8px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  margin: 5px 0;
+}
+
+button {
+  background-color: #002b5c;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #004080;
+}

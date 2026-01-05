@@ -1,21 +1,8 @@
-<!DOCTYPE html>
-<html lang="de">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Tagebuch – WB Mental Coach</title>
-  <link rel="stylesheet" href="/css/styles.css" />
-  <script defer type="module" src="/js/nav.js"></script>
-</head>
-<body>
-  <!-- Einheitliche Kopfzeile / Navigation -->
-  <header class="navbar">
-    <img src="assets/logo/logo.png" alt="WB Sport Mental Coach" class="logo" />
-    <nav></nav>
-  </header>
+// js/views/tagebuch-view.js
+// Tagebuch View
 
-  <!-- Inhalt -->
-  <main class="container">
+export async function renderTagebuchView() {
+  return `
     <h1>Tagebuch</h1>
 
     <form id="diaryForm" autocomplete="off">
@@ -46,17 +33,6 @@
     <section id="entries" class="mt-3">
       <!-- Einträge werden hier geladen -->
     </section>
-  </main>
+  `;
+}
 
-  <footer>© 2025 Waltraud Blaurock Sport Mental Coach</footer>
-
-  <!-- Auth-Guard: nur für eingeloggte Nutzer zugänglich -->
-  <script type="module">
-    import { requireUser } from '/js/check-auth.js';
-    await requireUser();
-  </script>
-
-  <!-- Seitenlogik (Einfügen & Laden) -->
-  <script type="module" src="/js/tagebuch.js"></script>
-</body>
-</html>

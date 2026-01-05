@@ -3,21 +3,18 @@ import { supabase } from './supa.js';
 import { requireUser } from './check-auth.js';
 import { flash, formatDate, exportCsv } from './utils.js';
 
-const user = await requireUser();
-
-const form = document.getElementById('diaryForm');
-const entryInput = document.getElementById('entry');
-const entriesEl = document.getElementById('entries');
-const msgEl = document.getElementById('msg');
-const searchInput = document.getElementById('diarySearch');
-const exportBtn = document.getElementById('exportDiaryBtn');
-const statusEl = document.getElementById('diaryStatus');
-
+let user = null;
 let allEntries = []; // Speichert alle Einträge für Suche und Export
 
 // Einträge laden & anzeigen
 async function renderEntries(searchTerm = '') {
-  if (entriesEl) entriesEl.innerHTML = '<p class="muted">Lade Einträge …</p>';
+  const entriesEl = document.getElementById('entries');
+  const statusEl = document.getElementById('diaryStatus');
+  const msgEl = document.getElementById('msg');
+  
+  if (!entriesEl || !user) return;
+  
+  entriesEl.innerHTML = '<p class="muted">Lade Einträge …</p>';
 
   const { data, error } = await supabase
     .from('tagebuch')
@@ -81,6 +78,7 @@ async function renderEntries(searchTerm = '') {
 
 // Export-Funktion
 function exportDiaryEntries() {
+  const msgEl = document.getElementById('msg');
   if (!allEntries.length) {
     flash('Keine Einträge zum Exportieren vorhanden.', 'info', msgEl);
     return;
@@ -95,46 +93,70 @@ function exportDiaryEntries() {
   flash('Tagebuch erfolgreich exportiert! ✅', 'ok', msgEl);
 }
 
-// Eintrag speichern
-form?.addEventListener('submit', async (e) => {
-  e.preventDefault();
-  const text = entryInput?.value?.trim() || '';
 
-  if (!text) {
-    flash('Bitte gib einen Tagebuch-Eintrag ein.', 'err', msgEl);
-    entryInput?.focus();
+// Initialisierungsfunktion für SPA
+export async function initTagebuch() {
+  user = await requireUser();
+  
+  const form = document.getElementById('diaryForm');
+  const entryInput = document.getElementById('entry');
+  const entriesEl = document.getElementById('entries');
+  const msgEl = document.getElementById('msg');
+  const searchInput = document.getElementById('diarySearch');
+  const exportBtn = document.getElementById('exportDiaryBtn');
+  const statusEl = document.getElementById('diaryStatus');
+
+  if (!form || !entryInput || !entriesEl || !msgEl) {
+    console.warn('Tagebuch-Elemente nicht gefunden');
     return;
   }
 
-  const btn = e.submitter || form.querySelector('button[type="submit"]');
-  btn.disabled = true;
-  const originalText = btn.textContent;
-  btn.textContent = 'Speichert …';
+  // Eintrag speichern
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const text = entryInput?.value?.trim() || '';
 
-  const { error } = await supabase
-    .from('tagebuch')
-    .insert([{ user_id: user.id, entry: text }]);
+    if (!text) {
+      flash('Bitte gib einen Tagebuch-Eintrag ein.', 'err', msgEl);
+      entryInput?.focus();
+      return;
+    }
 
-  btn.disabled = false;
-  btn.textContent = originalText;
+    const btn = e.submitter || form.querySelector('button[type="submit"]');
+    btn.disabled = true;
+    const originalText = btn.textContent;
+    btn.textContent = 'Speichert …';
 
-  if (error) {
-    console.error('Fehler beim Speichern:', error);
-    flash('Fehler beim Speichern: ' + error.message, 'err', msgEl);
-    return;
-  }
+    const { error } = await supabase
+      .from('tagebuch')
+      .insert([{ user_id: user.id, entry: text }]);
 
-  form.reset();
-  flash('Eintrag gespeichert. ✅', 'ok', msgEl);
+    btn.disabled = false;
+    btn.textContent = originalText;
+
+    if (error) {
+      console.error('Fehler beim Speichern:', error);
+      flash('Fehler beim Speichern: ' + error.message, 'err', msgEl);
+      return;
+    }
+
+    form.reset();
+    flash('Eintrag gespeichert. ✅', 'ok', msgEl);
+    await renderEntries();
+  });
+
+  // Event Listeners
+  searchInput?.addEventListener('input', (e) => {
+    renderEntries(e.target.value);
+  });
+
+  exportBtn?.addEventListener('click', exportDiaryEntries);
+
+  // Initial laden
   await renderEntries();
-});
+}
 
-// Event Listeners
-searchInput?.addEventListener('input', (e) => {
-  renderEntries(e.target.value);
-});
-
-exportBtn?.addEventListener('click', exportDiaryEntries);
-
-// Initial laden
-renderEntries();
+// Legacy Support: Wenn direkt geladen (nicht als SPA)
+if (document.getElementById('diaryForm')) {
+  initTagebuch();
+}

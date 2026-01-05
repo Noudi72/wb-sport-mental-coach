@@ -4,8 +4,6 @@ import { requireUser } from './check-auth.js';
 import { flash } from './utils.js';
 import { initCheckinCharts } from './checkin-charts.js';
 
-const form = document.getElementById('checkinForm');
-const msgEl = document.getElementById('msg');
 
 function collectAnswers(formEl) {
   const fd = new FormData(formEl);
@@ -20,9 +18,16 @@ function collectAnswers(formEl) {
   return result;
 }
 
-async function main() {
+export async function initFragebogen() {
+  const form = document.getElementById('checkinForm');
+  const msgEl = document.getElementById('msg');
+  
+  if (!form) {
+    console.warn('Check-in Formular nicht gefunden');
+    return;
+  }
+
   const user = await requireUser();
-  if (!form) return;
 
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
@@ -63,4 +68,7 @@ async function main() {
   await initCheckinCharts();
 }
 
-main();
+// Legacy Support
+if (document.getElementById('checkinForm')) {
+  initFragebogen();
+}

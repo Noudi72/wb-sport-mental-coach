@@ -1,20 +1,8 @@
-<!DOCTYPE html>
-<html lang="de">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Mental-Check-in – WB Mental Coach</title>
-  <link rel="stylesheet" href="/css/styles.css" />
-  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
-  <script defer type="module" src="/js/nav.js"></script>
-</head>
-<body>
-  <header class="navbar">
-    <img src="assets/logo/logo.png" alt="WB Sport Mental Coach" class="logo" />
-    <nav></nav>
-  </header>
+// js/views/fragebogen-view.js
+// Mental-Check-in View
 
-  <main class="container">
+export async function renderFragebogenView() {
+  return `
     <h1>Mental-Check-in</h1>
 
     <form id="checkinForm" novalidate>
@@ -78,7 +66,7 @@
         </select>
 
         <label for="gratitude">Wofür bist du dankbar? (optional)</label>
-        <textarea id="gratitude" name="gratitude" rows="2" placeholder="z. B. ein Moment oder eine Person"></textarea>
+        <textarea id="gratitude" name="gratitude" rows="2" placeholder="z. B. ein Moment oder eine Person"></textarea>
 
         <label for="comment">Kommentar (optional)</label>
         <textarea id="comment" name="comment" rows="3" placeholder="Freitext …"></textarea>
@@ -104,19 +92,6 @@
         <canvas id="checkinChart"></canvas>
       </div>
     </section>
-  </main>
+  `;
+}
 
-  <footer>
-    © 2025 Waltraud Blaurock Sport Mental Coach
-  </footer>
-
-  <!-- Auth-Gate: nur eingeloggte Nutzer dürfen posten -->
-  <script type="module">
-    import { requireUser } from '/js/check-auth.js';
-    await requireUser();
-  </script>
-
-  <!-- Check-in Logik -->
-  <script type="module" defer src="/js/fragebogen.js"></script>
-</body>
-</html>

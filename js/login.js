@@ -3,11 +3,9 @@ import { supabase } from './supa.js';
 import { flash } from './utils.js';
 import { ADMIN_EMAIL } from './check-auth.js';
 import { isValidEmail, isValidPassword, isValidName, setupRealTimeValidation } from './validation.js';
+import { router } from './router.js';
 
 const $ = (sel) => document.querySelector(sel);
-const loginForm = $('#loginForm');
-const registerForm = $('#registerForm');
-const toggleLink = $('#toggle-mode');
 
 function setMode(mode) {
   const isRegister = mode === 'register';
@@ -16,14 +14,24 @@ function setMode(mode) {
   if (toggleLink) toggleLink.textContent = isRegister ? 'Ich habe schon ein Konto' : 'Neu registrieren';
 }
 
-const params = new URLSearchParams(location.search);
-setMode(params.get('mode') === 'register' ? 'register' : 'login');
+export async function initLogin() {
+  const loginForm = $('#loginForm');
+  const registerForm = $('#registerForm');
+  const toggleLink = $('#toggle-mode');
+  
+  if (!loginForm || !registerForm) {
+    console.warn('Login-Formulare nicht gefunden');
+    return;
+  }
 
-toggleLink?.addEventListener('click', (e) => {
-  e.preventDefault();
-  const isLoginHidden = loginForm && getComputedStyle(loginForm).display === 'none';
-  setMode(isLoginHidden ? 'login' : 'register');
-});
+  const params = new URLSearchParams(location.search);
+  setMode(params.get('mode') === 'register' ? 'register' : 'login');
+
+  toggleLink?.addEventListener('click', (e) => {
+    e.preventDefault();
+    const isLoginHidden = loginForm && getComputedStyle(loginForm).display === 'none';
+    setMode(isLoginHidden ? 'login' : 'register');
+  });
 
 async function ensureProfile(user, fullNameFallback = '') {
   if (!user) return;
@@ -123,10 +131,15 @@ registerForm?.addEventListener('submit', async (e) => {
   }
 });
 
-// Bereits eingeloggt?
-(async () => {
+  // Bereits eingeloggt?
   const { data: { user } } = await supabase.auth.getUser();
   if (user) {
-    location.href = (user.email?.toLowerCase() === ADMIN_EMAIL.toLowerCase()) ? 'admin.html' : 'index.html';
+    const target = (user.email?.toLowerCase() === ADMIN_EMAIL.toLowerCase()) ? '/admin.html' : '/';
+    router.navigate(target, false);
   }
-})();
+}
+
+// Legacy Support
+if (document.getElementById('loginForm')) {
+  initLogin();
+}

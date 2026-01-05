@@ -1,21 +1,10 @@
-<!DOCTYPE html>
-<html lang="de">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Hörbücher & Meditationen – WB Mental Coach</title>
-  <link rel="stylesheet" href="/css/styles.css" />
-  <script defer type="module" src="/js/nav.js"></script>
-</head>
-<body>
-  <header class="navbar">
-    <img src="assets/logo/logo.png" alt="WB Sport Mental Coach" class="logo" />
-    <nav></nav>
-  </header>
+// js/views/audio-view.js
+// Hörbücher & Meditationen View
 
-  <main class="container">
+export async function renderAudioView() {
+  return `
     <h1>Hörbücher & Meditationen</h1>
-    <p>Wähle eine Session und tippe auf „Play“.</p>
+    <p>Wähle eine Session und tippe auf „Play".</p>
 
     <section class="card" id="audio-area">
       <h2>Deine Playlists</h2>
@@ -35,15 +24,6 @@
         <small id="trackInfo" class="muted"></small>
       </div>
     </section>
-  </main>
+  `;
+}
 
-  <footer>
-    © 2025 Waltraud Blaurock Sport Mental Coach
-  </footer>
-  <script type="module">
-    import { requireUser } from './js/check-auth.js';
-    await requireUser();
-  </script>
-  <script type="module" src="/js/audio.js"></script>
-</body>
-</html>

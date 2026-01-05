@@ -2,10 +2,6 @@
 import { supabase } from "./supa.js";
 import { flash } from "./utils.js";
 
-const msg = document.getElementById("audioMsg");
-const list = document.getElementById("playlist");
-const player = document.getElementById("player");
-
 let currentTrackIndex = -1;
 let tracks = [];
 const STORAGE_KEY = 'wb-audio-progress';
@@ -33,6 +29,9 @@ function saveProgress(trackId, currentTime, duration) {
 
 // Setze Fortschritt beim Laden
 function restoreProgress(trackId) {
+  const player = document.getElementById("player");
+  if (!player) return;
+  
   const progress = loadProgress();
   const saved = progress[trackId];
   if (saved && saved.currentTime && saved.duration) {
@@ -45,9 +44,13 @@ function restoreProgress(trackId) {
 }
 
 function render(items) {
+  const list = document.getElementById("playlist");
+  if (!list) return;
+  
   list.innerHTML = "";
   tracks = items;
 
+  const msg = document.getElementById("audioMsg");
   if (!items?.length) {
     flash("Keine Inhalte gefunden.", "info", msg);
     return;
@@ -80,7 +83,11 @@ function render(items) {
 }
 
 function playTrack(index) {
-  if (index < 0 || index >= tracks.length) return;
+  const list = document.getElementById("playlist");
+  const player = document.getElementById("player");
+  const msg = document.getElementById("audioMsg");
+  
+  if (index < 0 || index >= tracks.length || !player) return;
   
   const track = tracks[index];
   if (!track.src) return;
@@ -88,9 +95,11 @@ function playTrack(index) {
   currentTrackIndex = index;
   
   // Update UI
-  list.querySelectorAll('.audio-track-btn').forEach((btn, i) => {
-    btn.classList.toggle('active', i === index);
-  });
+  if (list) {
+    list.querySelectorAll('.audio-track-btn').forEach((btn, i) => {
+      btn.classList.toggle('active', i === index);
+    });
+  }
   
   // Setze Quelle und lade Fortschritt
   player.src = track.src;
@@ -107,23 +116,44 @@ function playTrack(index) {
   }
 }
 
-// Auto-Play nächster Track
-player.addEventListener('ended', () => {
-  if (currentTrackIndex >= 0 && currentTrackIndex < tracks.length - 1) {
-    playTrack(currentTrackIndex + 1);
-  } else {
-    currentTrackIndex = -1;
-    if (msg) msg.textContent = 'Wiedergabe beendet';
-  }
-});
-
 // Speichere Fortschritt während Wiedergabe
-player.addEventListener('timeupdate', () => {
-  if (currentTrackIndex >= 0 && tracks[currentTrackIndex]) {
-    const track = tracks[currentTrackIndex];
-    saveProgress(track.id || track.src, player.currentTime, player.duration);
-  }
-});
+function setupPlayerEvents() {
+  const player = document.getElementById("player");
+  if (!player) return;
+  
+  // Speichere Fortschritt während Wiedergabe
+  player.addEventListener('timeupdate', () => {
+    if (currentTrackIndex >= 0 && tracks[currentTrackIndex]) {
+      const track = tracks[currentTrackIndex];
+      saveProgress(track.id || track.src, player.currentTime, player.duration);
+    }
+  });
+  
+  // Auto-Play nächster Track (mit Shuffle)
+  player.addEventListener('ended', () => {
+    const msg = document.getElementById("audioMsg");
+    if (shuffleMode) {
+      playRandomTrack();
+    } else if (currentTrackIndex >= 0 && currentTrackIndex < tracks.length - 1) {
+      playTrack(currentTrackIndex + 1);
+    } else if (tracks.length > 0) {
+      // Zurück zum Anfang
+      playTrack(0);
+    } else {
+      currentTrackIndex = -1;
+      if (msg) msg.textContent = 'Wiedergabe beendet';
+    }
+  });
+  
+  // Update Track Info
+  player.addEventListener("loadedmetadata", () => {
+    const trackInfo = document.getElementById("trackInfo");
+    if (currentTrackIndex >= 0 && tracks[currentTrackIndex] && trackInfo) {
+      const duration = formatTime(player.duration);
+      trackInfo.textContent = `Dauer: ${duration}`;
+    }
+  });
+}
 
 // --- Cloud: Playlists & Tracks laden ----------------------------
 async function tryLoadCloud() {
@@ -183,32 +213,33 @@ function getLocalDemo() {
   ];
 }
 
-// Navigation Buttons
-const prevBtn = document.getElementById("prevBtn");
-const nextBtn = document.getElementById("nextBtn");
-const shuffleBtn = document.getElementById("shuffleBtn");
-const trackInfo = document.getElementById("trackInfo");
-
-prevBtn?.addEventListener("click", () => {
-  if (currentTrackIndex > 0) {
-    playTrack(currentTrackIndex - 1);
-  }
-});
-
-nextBtn?.addEventListener("click", () => {
-  if (currentTrackIndex >= 0 && currentTrackIndex < tracks.length - 1) {
-    playTrack(currentTrackIndex + 1);
-  } else if (tracks.length > 0) {
-    playTrack(0); // Zurück zum Anfang
-  }
-});
-
 let shuffleMode = false;
-shuffleBtn?.addEventListener("click", () => {
-  shuffleMode = !shuffleMode;
-  shuffleBtn.classList.toggle("active", shuffleMode);
-  shuffleBtn.title = shuffleMode ? "Zufällige Wiedergabe deaktivieren" : "Zufällige Wiedergabe aktivieren";
-});
+
+function setupNavigationButtons() {
+  const prevBtn = document.getElementById("prevBtn");
+  const nextBtn = document.getElementById("nextBtn");
+  const shuffleBtn = document.getElementById("shuffleBtn");
+
+  prevBtn?.addEventListener("click", () => {
+    if (currentTrackIndex > 0) {
+      playTrack(currentTrackIndex - 1);
+    }
+  });
+
+  nextBtn?.addEventListener("click", () => {
+    if (currentTrackIndex >= 0 && currentTrackIndex < tracks.length - 1) {
+      playTrack(currentTrackIndex + 1);
+    } else if (tracks.length > 0) {
+      playTrack(0); // Zurück zum Anfang
+    }
+  });
+
+  shuffleBtn?.addEventListener("click", () => {
+    shuffleMode = !shuffleMode;
+    shuffleBtn.classList.toggle("active", shuffleMode);
+    shuffleBtn.title = shuffleMode ? "Zufällige Wiedergabe deaktivieren" : "Zufällige Wiedergabe aktivieren";
+  });
+}
 
 // Zufälliger Track
 function playRandomTrack() {
@@ -217,14 +248,6 @@ function playRandomTrack() {
   playTrack(randomIndex);
 }
 
-// Update Track Info
-player.addEventListener("loadedmetadata", () => {
-  if (currentTrackIndex >= 0 && tracks[currentTrackIndex] && trackInfo) {
-    const duration = formatTime(player.duration);
-    trackInfo.textContent = `Dauer: ${duration}`;
-  }
-});
-
 function formatTime(seconds) {
   if (!seconds || isNaN(seconds)) return "0:00";
   const mins = Math.floor(seconds / 60);
@@ -232,23 +255,20 @@ function formatTime(seconds) {
   return `${mins}:${secs.toString().padStart(2, '0')}`;
 }
 
-// Auto-Play nächster Track (mit Shuffle)
-player.addEventListener('ended', () => {
-  if (shuffleMode) {
-    playRandomTrack();
-  } else if (currentTrackIndex >= 0 && currentTrackIndex < tracks.length - 1) {
-    playTrack(currentTrackIndex + 1);
-  } else if (tracks.length > 0) {
-    // Zurück zum Anfang
-    playTrack(0);
-  } else {
-    currentTrackIndex = -1;
-    if (msg) msg.textContent = 'Wiedergabe beendet';
-  }
-});
-
 // --- Start -------------------------------------------------------
-(async function init() {
+export async function initAudio() {
+  const msg = document.getElementById("audioMsg");
+  const player = document.getElementById("player");
+  
+  if (!msg || !player) {
+    console.warn('Audio-Elemente nicht gefunden');
+    return;
+  }
+
+  // Setup Event Listeners
+  setupPlayerEvents();
+  setupNavigationButtons();
+
   flash("Lade Playlists ...", "info", msg);
 
   const cloudItems = await tryLoadCloud();
@@ -268,4 +288,9 @@ player.addEventListener('ended', () => {
     }));
     render(demoItems);
   }
-})();
+}
+
+// Legacy Support
+if (document.getElementById("audioMsg")) {
+  initAudio();
+}

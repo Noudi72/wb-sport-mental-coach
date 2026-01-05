@@ -295,7 +295,7 @@ document.querySelectorAll('ul[data-draggable]')?.forEach(ul => {
   });
 });
 
-(async () => {
+export async function initAdmin() {
   try {
     await ensureAdmin();
     loadFeedback();
@@ -304,4 +304,9 @@ document.querySelectorAll('ul[data-draggable]')?.forEach(ul => {
   } catch (err) {
     console.error(err);
   }
-})();
+}
+
+// Legacy Support
+if (document.getElementById('crm-admin')) {
+  initAdmin();
+}

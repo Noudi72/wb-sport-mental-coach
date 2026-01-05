@@ -86,7 +86,9 @@ async function renderNav() {
   if (btn) {
     btn.addEventListener('click', async () => {
       await supabase.auth.signOut();
-      location.href = 'index.html';
+      // Router verwenden für Navigation
+      const { router } = await import('./router.js');
+      router.navigate('/', false);
     });
   }
 

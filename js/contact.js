@@ -3,18 +3,22 @@ import { supabase } from './supa.js';
 import { flash } from './utils.js';
 import { isValidEmail, sanitizeText, setupRealTimeValidation } from './validation.js';
 
-const form = document.getElementById('contactForm');
-const msgEl = document.getElementById('msg');
+export async function initContact() {
+  const form = document.getElementById('contactForm');
+  const msgEl = document.getElementById('msg');
 
-if (!form || !msgEl) throw new Error('Formular oder Nachrichtenelement fehlt.');
+  if (!form || !msgEl) {
+    console.warn('Kontakt-Formular nicht gefunden');
+    return;
+  }
 
-// Real-time Validierung einrichten
-const emailField = form.querySelector('[name="email"]');
-if (emailField) {
-  setupRealTimeValidation(emailField, isValidEmail, 'Bitte eine gültige E-Mail-Adresse eingeben.');
-}
+  // Real-time Validierung einrichten
+  const emailField = form.querySelector('[name="email"]');
+  if (emailField) {
+    setupRealTimeValidation(emailField, isValidEmail, 'Bitte eine gültige E-Mail-Adresse eingeben.');
+  }
 
-form.addEventListener('submit', async (e) => {
+  form.addEventListener('submit', async (e) => {
   e.preventDefault();
 
   const btn = e.submitter || form.querySelector('button[type="submit"]');
@@ -40,7 +44,7 @@ form.addEventListener('submit', async (e) => {
     btn.textContent = originalText;
     return;
   }
-  
+
   // Sanitize Input
   const sanitizedName = sanitizeText(n);
   const sanitizedMessage = sanitizeText(m);
@@ -62,4 +66,10 @@ form.addEventListener('submit', async (e) => {
     btn.disabled = false;
     btn.textContent = originalText;
   }
-});
+  });
+}
+
+// Legacy Support
+if (document.getElementById('contactForm')) {
+  initContact();
+}
