@@ -26,21 +26,21 @@ function buildThemeToggle() {
 
 function buildNavHtml(user) {
   const mainLinks = LINKS.map(link => {
-    const isActive = isActive(link.href);
-    return `<li><a href="${link.href}"${isActive ? ' class="active" aria-current="page"' : ''}>${link.label}</a></li>`;
+    const active = isActive(link.href);
+    return `<li><a href="${link.href}"${active ? ' class="active" aria-current="page"' : ''}>${link.label}</a></li>`;
   }).join('');
 
   let authLinks = '';
   if (user?.email === ADMIN_EMAIL) {
-    const isActiveAdmin = isActive('admin.html');
-    authLinks += `<li><a href="admin.html"${isActiveAdmin ? ' class="active" aria-current="page"' : ''}>Admin</a></li>`;
+    const activeAdmin = isActive('admin.html');
+    authLinks += `<li><a href="admin.html"${activeAdmin ? ' class="active" aria-current="page"' : ''}>Admin</a></li>`;
   }
 
-  const isActiveLogin = isActive('login.html');
+  const activeLogin = isActive('login.html');
   if (user) {
     authLinks += `<li><button id="logoutBtn" class="auth-link" type="button">Logout</button></li>`;
   } else {
-    authLinks += `<li><a href="login.html"${isActiveLogin ? ' class="active auth-link" aria-current="page"' : ' class="auth-link"'}>Login</a></li>`;
+    authLinks += `<li><a href="login.html"${activeLogin ? ' class="active auth-link" aria-current="page"' : ' class="auth-link"'}>Login</a></li>`;
   }
 
   return `<ul class="nav-list">${mainLinks}${authLinks}</ul>${buildThemeToggle()}`;
