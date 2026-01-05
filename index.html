@@ -43,12 +43,15 @@
     import { initApp } from './js/app.js';
     import { initDarkMode } from './js/dark-mode.js';
     import './js/error-handler.js';
-    import './js/nav.js';
+    import { renderNav } from './js/nav.js';
     
     // Dark Mode initialisieren
     initDarkMode();
     
-    // App initialisieren
+    // Navigation sofort rendern
+    await renderNav();
+    
+    // App initialisieren (lädt Router und erste View)
     await initApp();
   </script>
 </body>

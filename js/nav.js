@@ -147,5 +147,16 @@ async function renderNav() {
   });
 }
 
-document.addEventListener('DOMContentLoaded', renderNav);
+// Export für manuelles Rendering
+export { renderNav };
+
+// Auto-Render wenn DOM bereit ist (nur wenn nicht bereits gerendert)
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', renderNav);
+} else {
+  // DOM bereits bereit, sofort rendern
+  renderNav();
+}
+
+// Re-render bei Auth-Änderungen
 supabase.auth.onAuthStateChange(() => renderNav());

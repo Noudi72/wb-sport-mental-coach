@@ -40,8 +40,8 @@ class Router {
       this.navigate(href);
     });
 
-    // Initial Route laden
-    this.handleRoute(location.pathname || '/', false);
+    // Initial Route wird von app.js geladen, nicht hier
+    // (verhindert doppelte Initialisierung)
   }
 
   /**

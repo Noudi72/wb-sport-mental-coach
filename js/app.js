@@ -181,12 +181,29 @@ export async function initApp() {
   registerRoutes();
   
   console.log('✅ SPA Router initialisiert');
+  
+  // Sicherstellen, dass die initiale Route geladen wird
+  // Warte kurz, damit DOM vollständig bereit ist
+  await new Promise(resolve => setTimeout(resolve, 10));
+  
+  // Lade initiale Route
+  const currentPath = location.pathname || 'index.html';
+  const hash = location.hash.replace('#', '');
+  const pathToLoad = hash || currentPath;
+  
+  console.log('📍 Lade initiale Route:', pathToLoad);
+  await router.handleRoute(pathToLoad, false);
 }
 
-// Auto-Init wenn DOM bereit ist
-if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', initApp);
-} else {
-  initApp();
+// Export für manuelle Initialisierung
+export { initApp };
+
+// Auto-Init nur wenn direkt geladen (nicht als Modul)
+if (import.meta.url === `file://${window.location.href}` || document.currentScript) {
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initApp);
+  } else {
+    initApp();
+  }
 }
 
